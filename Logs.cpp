@@ -31,7 +31,7 @@ Logs::~Logs ()
 
 const size_t TIME_BIFFER_SIZE = 100;
 
-char* Logs::getTimeString_ (char* buffer)
+char* Logs::getTimeString (char* buffer)
 {
     time_t rawtime = 0;
     struct tm* timeinfo = {};
@@ -48,7 +48,7 @@ void Logs::error (const char* text)
 {
     char buffer[100];
 
-    fprintf (file_, "<u>%s</u> <font color = red><b>error:</b></font>   %s\n", getTimeString_ (buffer), text);
+    fprintf (file_, "<u>%s</u> <font color = red><b>error:</b></font>   %s\n", getTimeString (buffer), text);
     fflush (file_);
 }
 
@@ -56,7 +56,7 @@ void Logs::warn (const char* text)
 {
     char buffer[100];
 
-    fprintf (file_, "<u>%s</u> <font color = purple><b>warning:</b></font> %s\n", getTimeString_ (buffer), text);
+    fprintf (file_, "<u>%s</u> <font color = purple><b>warning:</b></font> %s\n", getTimeString (buffer), text);
     fflush (file_);
 }
 
@@ -64,7 +64,7 @@ void Logs::debug (const char* text)
 {
     char buffer[100];
 
-    fprintf (file_, "<u>%s</u> <font color = teal><b>debug:</b></font>   %s\n", getTimeString_ (buffer), text);
+    fprintf (file_, "<u>%s</u> <font color = teal><b>debug:</b></font>   %s\n", getTimeString (buffer), text);
     fflush (file_);
 }
 
@@ -72,7 +72,7 @@ void Logs::trace (const char* text)
 {
     char buffer[100];
 
-    fprintf (file_, "<u>%s</u> <font color = #404040><b>trace:</b></font>   %s\n", getTimeString_ (buffer), text);
+    fprintf (file_, "<u>%s</u> <font color = #404040><b>trace:</b></font>   %s\n", getTimeString (buffer), text);
     fflush (file_);
 }
 

@@ -26,9 +26,8 @@ class Logs
 
         void print  (const char* text);
 
-    private:
 
-        char* getTimeString_ (char* buf);
+        char* getTimeString (char* buf);
 };
 
 extern Logs Logs;
