@@ -15,4 +15,4 @@
 
 Если не нравится дефолтное имя логов Logs.html, можно поменять в Log.h в строчке
 
-  6 const char DEFAULT_LOG_NAME[] = "Logs.html";
+  >6 const char DEFAULT_LOG_NAME[] = "Logs.html";
