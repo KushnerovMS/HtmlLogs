@@ -1,11 +1,13 @@
+#include <stdio.h>
 #include <time.h>
+#include <stdarg.h>
 
 #include "Logs.h"
 
 class Logs Logs;
 
 Logs::Logs ():
-    file_ (fopen (DEFAULT_LOG_NAME, "a"))
+    file_ (fopen (DEFAULT_LOG_NAME, "w"))
 {
     if (file_ == nullptr)
         printf ("Log file can't be opened");
@@ -16,7 +18,7 @@ Logs::Logs ():
 }
     
 Logs::Logs (const char* name):
-    file_ (fopen (name, "a"))
+    file_ (fopen (name, "w"))
 {
     if (file_ == nullptr)
         printf ("Log file can't be opened");
@@ -44,41 +46,78 @@ char* Logs::getTimeString (char* buffer)
     return buffer;
 }
 
-void Logs::error (const char* text)
+void Logs::error (const char* fmt, ...)
 {
     char buffer[100];
 
-    fprintf (file_, "<u>%s</u> <font color = red><b>error:</b></font>   %s\n", getTimeString (buffer), text);
+    fprintf (file_, "<u>%s</u> <font color = red><b>error:</b></font>   ", getTimeString (buffer));
+
+    va_list ap;
+    va_start (ap, fmt);
+    vfprintf (file_, fmt, ap);
+    va_end (ap);
+
+    fputc ('\n', file_);
+
     fflush (file_);
 }
 
-void Logs::warn (const char* text)
+void Logs::warn (const char* fmt, ...)
 {
     char buffer[100];
 
-    fprintf (file_, "<u>%s</u> <font color = purple><b>warning:</b></font> %s\n", getTimeString (buffer), text);
+    fprintf (file_, "<u>%s</u> <font color = purple><b>warning:</b></font> ", getTimeString (buffer));
+
+    va_list ap;
+    va_start (ap, fmt);
+    vfprintf (file_, fmt, ap);
+    va_end (ap);
+
+    fputc ('\n', file_);
+
     fflush (file_);
 }
 
-void Logs::debug (const char* text)
+void Logs::debug (const char* fmt, ...)
 {
     char buffer[100];
 
-    fprintf (file_, "<u>%s</u> <font color = teal><b>debug:</b></font>   %s\n", getTimeString (buffer), text);
+    fprintf (file_, "<u>%s</u> <font color = teal><b>debug:</b></font>   ", getTimeString (buffer));
+
+    va_list ap;
+    va_start (ap, fmt);
+    vfprintf (file_, fmt, ap);
+    va_end (ap);
+
+    fputc ('\n', file_);
+
     fflush (file_);
 }
 
-void Logs::trace (const char* text)
+void Logs::trace (const char* fmt, ...)
 {
     char buffer[100];
 
-    fprintf (file_, "<u>%s</u> <font color = #404040><b>trace:</b></font>   %s\n", getTimeString (buffer), text);
+    fprintf (file_, "<u>%s</u> <font color = #404040><b>trace:</b></font>   ", getTimeString (buffer));
+
+    va_list ap;
+    va_start (ap, fmt);
+    vfprintf (file_, fmt, ap);
+    va_end (ap);
+
+    fputc ('\n', file_);
+
     fflush (file_);
 }
 
-void Logs::print (const char* text)
+void Logs::print (const char* fmt, ...)
 {
-    fprintf (file_, "%s", text);
+    va_list ap;
+    va_start (ap, fmt);
+    vfprintf (file_, fmt, ap);
+    va_end (ap);
+
+    fputc ('\n', file_);
 }
 
 FILE* Logs::getFile ()

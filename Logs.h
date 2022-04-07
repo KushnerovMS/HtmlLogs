@@ -19,12 +19,12 @@ class Logs
         ~Logs ();
         
         
-        void    error       (const char* text);
-        void    warn        (const char* text);
-        void    debug       (const char* text);
-        void    trace       (const char* text);
+        void    error       (const char* fmt, ...);
+        void    warn        (const char* fmt, ...);
+        void    debug       (const char* fmt, ...);
+        void    trace       (const char* fmt, ...);
 
-        void    print       (const char* text);
+        void    print       (const char* fmt, ...);
 
         FILE*   getFile     ();
 
