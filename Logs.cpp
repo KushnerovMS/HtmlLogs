@@ -80,3 +80,8 @@ void Logs::print (const char* text)
 {
     fprintf (file_, "%s", text);
 }
+
+FILE* Logs::getFile ()
+{
+    return file_;
+}
