@@ -116,8 +116,6 @@ void Logs::print (const char* fmt, ...)
     va_start (ap, fmt);
     vfprintf (file_, fmt, ap);
     va_end (ap);
-
-    fputc ('\n', file_);
 }
 
 FILE* Logs::getFile ()
