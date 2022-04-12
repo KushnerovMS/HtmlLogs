@@ -19,6 +19,11 @@ OBJECTS=$(addprefix $(OBJDIR)/, $(SOURCES:.cpp=.o))
 EXECUTABLE=Logs
 EXEDIR=./bin
 
+COMAPANY=kms
+
+LIBDIR=/lib
+HEADERDIR=/usr/include
+
 
 $(EXECUTABLE): $(OBJECTS) $(EXEDIR)
 	$(CC) $(SANFLAGS) $(OBJECTS) -o $(EXEDIR)/$@
@@ -30,8 +35,20 @@ $(OBJECTS) : $(OBJDIR)/%.o : %.cpp $(OBJDIR)
 lib$(EXECUTABLE).a : $(OBJECTS:$(OBJDIR)/main.o= )
 	ar r lib$(EXECUTABLE).a $(OBJECTS:$(OBJDIR)/main.o= )
 
+libInstall : lib$(EXECUTABLE).a $(LIBDIR)/$(COMAPANY)/ $(HEADERDIR)/$(COMAPANY)/
+	cp -f lib$(EXECUTABLE).a $(LIBDIR)/$(COMAPANY)/
+	cp -f $(EXECUTABLE).h 	 $(HEADERDIR)/$(COMAPANY)/
+
+$(LIBDIR)/$(COMAPANY)/ :
+	mkdir $(LIBDIR)/$(COMAPANY)/
+
+$(HEADERDIR)/$(COMAPANY)/ :
+	mkdir $(HEADERDIR)/$(COMAPANY)/
+
+
 $(EXEDIR) :
 	mkdir $(EXEDIR)
 
 $(OBJDIR) :
 	mkdir $(OBJDIR)
+	
